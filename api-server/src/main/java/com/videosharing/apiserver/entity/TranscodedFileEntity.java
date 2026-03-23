@@ -1,0 +1,46 @@
+package com.videosharing.apiserver.entity;
+
+import jakarta.persistence.*;
+import java.time.Instant;
+import java.util.UUID;
+
+@Entity
+@Table(name = "transcoded_files")
+public class TranscodedFileEntity {
+
+    @Id
+    private UUID id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "video_id", nullable = false)
+    private VideoEntity video;
+
+    @Column(nullable = false, length = 10)
+    private String resolution;
+
+    @Column(name = "minio_key", nullable = false, length = 500)
+    private String minioKey;
+
+    @Column(name = "file_size")
+    private Long fileSize;
+
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private Instant createdAt = Instant.now();
+
+    public TranscodedFileEntity() {}
+
+    public TranscodedFileEntity(UUID id, VideoEntity video, String resolution, String minioKey, Long fileSize) {
+        this.id = id;
+        this.video = video;
+        this.resolution = resolution;
+        this.minioKey = minioKey;
+        this.fileSize = fileSize;
+    }
+
+    public UUID getId() { return id; }
+    public VideoEntity getVideo() { return video; }
+    public String getResolution() { return resolution; }
+    public String getMinioKey() { return minioKey; }
+    public Long getFileSize() { return fileSize; }
+    public Instant getCreatedAt() { return createdAt; }
+}
