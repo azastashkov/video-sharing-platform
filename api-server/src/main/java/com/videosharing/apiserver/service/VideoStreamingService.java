@@ -4,6 +4,7 @@ import com.videosharing.apiserver.entity.TranscodedFileEntity;
 import com.videosharing.apiserver.entity.VideoEntity;
 import com.videosharing.apiserver.repository.TranscodedFileRepository;
 import com.videosharing.apiserver.repository.VideoRepository;
+import com.videosharing.common.dto.VideoStatus;
 import io.minio.GetObjectArgs;
 import io.minio.MinioClient;
 import io.minio.StatObjectArgs;
@@ -38,7 +39,8 @@ public class VideoStreamingService {
     }
 
     public Optional<StreamResult> streamVideo(String filename, String resolution) {
-        Optional<VideoEntity> videoOpt = videoRepository.findByOriginalFilename(filename);
+        Optional<VideoEntity> videoOpt = videoRepository.findFirstByOriginalFilenameAndStatusOrderByCreatedAtDesc(
+                filename, VideoStatus.COMPLETED);
         if (videoOpt.isEmpty()) {
             return Optional.empty();
         }

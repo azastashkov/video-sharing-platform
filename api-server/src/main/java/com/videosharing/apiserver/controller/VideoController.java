@@ -80,17 +80,22 @@ public class VideoController {
             @RequestParam("file") String file,
             @RequestParam("resolution") String resolution) {
 
-        Optional<VideoStreamingService.StreamResult> result = streamingService.streamVideo(file, resolution);
-        if (result.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
+        try {
+            Optional<VideoStreamingService.StreamResult> result = streamingService.streamVideo(file, resolution);
+            if (result.isEmpty()) {
+                return ResponseEntity.notFound().build();
+            }
 
-        VideoStreamingService.StreamResult streamResult = result.get();
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_TYPE, streamResult.contentType())
-                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + file + "\"")
-                .header(HttpHeaders.CONTENT_LENGTH, String.valueOf(streamResult.contentLength()))
-                .body(streamResult.resource());
+            VideoStreamingService.StreamResult streamResult = result.get();
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_TYPE, streamResult.contentType())
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + file + "\"")
+                    .header(HttpHeaders.CONTENT_LENGTH, String.valueOf(streamResult.contentLength()))
+                    .body(streamResult.resource());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("error", "Streaming failed: " + e.getMessage()));
+        }
     }
 
     private String getBaseUrl(HttpServletRequest request) {

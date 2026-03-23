@@ -5,6 +5,7 @@ import com.videosharing.apiserver.entity.VideoEntity;
 import com.videosharing.apiserver.repository.TranscodedFileRepository;
 import com.videosharing.apiserver.repository.VideoRepository;
 import com.videosharing.apiserver.service.VideoStreamingService;
+import com.videosharing.common.dto.VideoStatus;
 import io.minio.GetObjectArgs;
 import io.minio.GetObjectResponse;
 import io.minio.MinioClient;
@@ -60,7 +61,8 @@ class VideoStreamingServiceTest {
                 transcodedId, video, "1080p", "transcoded/video-1080p.mp4", 2048L
         );
 
-        when(videoRepository.findByOriginalFilename("video.mp4")).thenReturn(Optional.of(video));
+        when(videoRepository.findFirstByOriginalFilenameAndStatusOrderByCreatedAtDesc("video.mp4", VideoStatus.COMPLETED))
+                .thenReturn(Optional.of(video));
         when(transcodedFileRepository.findByVideoId(videoId)).thenReturn(List.of(transcodedFile));
 
         StatObjectResponse statResponse = mock(StatObjectResponse.class);
@@ -86,7 +88,8 @@ class VideoStreamingServiceTest {
 
     @Test
     void streamVideo_fileNotFound_returnsEmpty() {
-        when(videoRepository.findByOriginalFilename("missing.mp4")).thenReturn(Optional.empty());
+        when(videoRepository.findFirstByOriginalFilenameAndStatusOrderByCreatedAtDesc("missing.mp4", VideoStatus.COMPLETED))
+                .thenReturn(Optional.empty());
 
         Optional<VideoStreamingService.StreamResult> result = streamingService.streamVideo("missing.mp4", "1080p");
 
