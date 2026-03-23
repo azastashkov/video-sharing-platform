@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2026-03-22T00:00:00.000Z" agent="Claude Code" version="21.0.0">
+  <diagram name="Video Sharing Platform Architecture" id="video-platform-arch">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Client -->
+        <mxCell id="2" value="Client" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="60" y="300" width="120" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Nginx Load Balancer -->
+        <mxCell id="3" value="Nginx&#xa;(Load Balancer)&#xa;:8080" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="260" y="300" width="140" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- API Server 1 -->
+        <mxCell id="4" value="API Server 1&#xa;:8080" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="480" y="240" width="140" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- API Server 2 -->
+        <mxCell id="5" value="API Server 2&#xa;:8080" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="480" y="360" width="140" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- RabbitMQ -->
+        <mxCell id="6" value="RabbitMQ&#xa;:5672/:15672" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="720" y="300" width="140" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- MinIO Original Storage -->
+        <mxCell id="7" value="MinIO&#xa;(Original Storage)&#xa;:9000" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="720" y="160" width="140" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- MinIO Transcoded Storage -->
+        <mxCell id="8" value="MinIO&#xa;(Transcoded Storage)&#xa;:9000" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="720" y="440" width="140" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- PostgreSQL -->
+        <mxCell id="9" value="PostgreSQL&#xa;:5432" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="480" y="520" width="140" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Redis -->
+        <mxCell id="10" value="Redis&#xa;:6379" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="480" y="620" width="140" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Transcoding Worker 1 -->
+        <mxCell id="11" value="Transcoding Worker 1&#xa;:8082" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="960" y="240" width="160" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Transcoding Worker 2 -->
+        <mxCell id="12" value="Transcoding Worker 2&#xa;:8082" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="960" y="360" width="160" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Completion Handler 1 -->
+        <mxCell id="13" value="Completion Handler 1&#xa;:8083" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="960" y="500" width="160" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Completion Handler 2 -->
+        <mxCell id="14" value="Completion Handler 2&#xa;:8083" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="960" y="600" width="160" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Prometheus -->
+        <mxCell id="15" value="Prometheus&#xa;:9090" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="480" y="760" width="140" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Grafana -->
+        <mxCell id="16" value="Grafana&#xa;:3000" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="720" y="760" width="140" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Client -> Nginx -->
+        <mxCell id="20" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="2" target="3" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Nginx -> API Server 1 -->
+        <mxCell id="21" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="3" target="4" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Nginx -> API Server 2 -->
+        <mxCell id="22" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="3" target="5" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- API Servers -> MinIO (original) -->
+        <mxCell id="23" value="upload" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="4" target="7" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- API Servers -> RabbitMQ (transcoding-tasks) -->
+        <mxCell id="24" value="transcoding-tasks" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="4" target="6" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="25" value="transcoding-tasks" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="5" target="6" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- API Servers -> PostgreSQL -->
+        <mxCell id="26" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="4" target="9" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="27" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="5" target="9" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- API Servers -> Redis -->
+        <mxCell id="28" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="4" target="10" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="29" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="5" target="10" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- API Servers -> MinIO (transcoded, for streaming) -->
+        <mxCell id="30" value="stream" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="5" target="8" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- RabbitMQ -> Transcoding Workers -->
+        <mxCell id="31" value="consume tasks" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="6" target="11" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="32" value="consume tasks" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="6" target="12" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Transcoding Workers -> MinIO (read original) -->
+        <mxCell id="33" value="read original" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="11" target="7" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Transcoding Workers -> MinIO (write transcoded) -->
+        <mxCell id="34" value="write transcoded" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="11" target="8" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="35" value="write transcoded" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="12" target="8" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Transcoding Workers -> RabbitMQ (transcoding-completions) -->
+        <mxCell id="36" value="transcoding-completions" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="11" target="6" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="37" value="transcoding-completions" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="12" target="6" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- RabbitMQ -> Completion Handlers -->
+        <mxCell id="38" value="consume completions" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="6" target="13" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="39" value="consume completions" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="6" target="14" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Completion Handlers -> PostgreSQL -->
+        <mxCell id="40" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="13" target="9" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="41" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="14" target="9" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Completion Handlers -> Redis -->
+        <mxCell id="42" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="13" target="10" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="43" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="14" target="10" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Prometheus -> all services (scrape) -->
+        <mxCell id="44" value="scrape /actuator/prometheus" style="edgeStyle=orthogonalEdgeStyle;dashed=1;" edge="1" source="15" target="4" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="45" value="scrape" style="edgeStyle=orthogonalEdgeStyle;dashed=1;" edge="1" source="15" target="5" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="46" value="scrape" style="edgeStyle=orthogonalEdgeStyle;dashed=1;" edge="1" source="15" target="11" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="47" value="scrape" style="edgeStyle=orthogonalEdgeStyle;dashed=1;" edge="1" source="15" target="12" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="48" value="scrape" style="edgeStyle=orthogonalEdgeStyle;dashed=1;" edge="1" source="15" target="13" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="49" value="scrape" style="edgeStyle=orthogonalEdgeStyle;dashed=1;" edge="1" source="15" target="14" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Grafana -> Prometheus -->
+        <mxCell id="50" value="query metrics" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="16" target="15" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
