@@ -47,7 +47,8 @@ public class VideoStreamer {
                                 r.filename(), resolution, resp.body().length, ms / 1000.0);
                     } else {
                         failure++;
-                        System.out.printf("  FAIL %s@%s: HTTP %d%n", r.filename(), resolution, resp.statusCode());
+                        String body = new String(resp.body()).substring(0, Math.min(resp.body().length, 500));
+                        System.out.printf("  FAIL %s@%s: HTTP %d — %s%n", r.filename(), resolution, resp.statusCode(), body);
                     }
                 } catch (Exception e) {
                     failure++;
