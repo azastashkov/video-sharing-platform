@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.videosharing.apiserver.VideoMetadataServiceTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-03-23T01:51:53" hostname="MacBook-Pro-Aleksandr.local" time="0.091">
-  <properties/>
-  <testcase name="getVideoMetadata_returnsCachedResult()" classname="com.videosharing.apiserver.VideoMetadataServiceTest" time="0.085"/>
-  <testcase name="getVideoMetadata_cacheMiss_readsFromDb()" classname="com.videosharing.apiserver.VideoMetadataServiceTest" time="0.004"/>
-  <testcase name="getVideoMetadata_notFound()" classname="com.videosharing.apiserver.VideoMetadataServiceTest" time="0.001"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

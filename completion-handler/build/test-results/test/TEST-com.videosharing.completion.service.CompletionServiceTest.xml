@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.videosharing.completion.service.CompletionServiceTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-03-23T02:01:32" hostname="MacBook-Pro-Aleksandr.local" time="0.142">
-  <properties/>
-  <testcase name="handleCompletion_savesTranscodedFilesAndUpdatesStatus()" classname="com.videosharing.completion.service.CompletionServiceTest" time="0.14"/>
-  <testcase name="handleCompletion_videoNotFound_throws()" classname="com.videosharing.completion.service.CompletionServiceTest" time="0.002"/>
-  <system-out><![CDATA[21:01:32.790 [Test worker] INFO com.videosharing.completion.service.CompletionService -- Completion handled: videoId=5ebd059a-6590-4512-b589-5f03454126b3, transcodedFiles=3
-]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
