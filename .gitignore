@@ -12,6 +12,3 @@ build/
 # OS
 .DS_Store
 Thumbs.db
-
-# Video files (sample data)
-video/
