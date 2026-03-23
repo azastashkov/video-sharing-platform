@@ -9,7 +9,7 @@ A video sharing platform built with Java 21, Spring Boot, and Groovy Gradle. Use
 ### Services (2 replicas each)
 
 #### api-server
-- **Upload endpoint**: `POST /api/videos/upload` — accepts multipart mp4, stores to MinIO `original-storage` bucket, publishes transcoding task to RabbitMQ, returns `202 Accepted` with videoId.
+- **Upload endpoint**: `POST /api/videos/upload` — accepts multipart mp4, stores to MinIO `original-storage` bucket with key `originals/{videoId}/{filename}`, publishes transcoding task to RabbitMQ, returns `202 Accepted` with videoId.
 - **Metadata endpoint**: `GET /api/videos/{videoId}` — returns video metadata including URLs for each transcoded resolution. Reads from Redis cache first, falls through to PostgreSQL on cache miss.
 - **Streaming endpoint**: `GET /api/videos/stream?file={filename}&resolution={resolution}` — streams the transcoded mp4 file from MinIO `transcoded-storage` bucket. The URL format per the requirement: `http://host:[port]/api/videos/stream?file=filename&resolution=XXXp`
 - **List endpoint**: `GET /api/videos` — lists all videos with their status.
@@ -205,8 +205,8 @@ video-sharing-platform/
 
 ```nginx
 upstream api_servers {
-    server api-server-1:8080;
-    server api-server-2:8080;
+    server api-server-1:8080 max_fails=3 fail_timeout=30s;
+    server api-server-2:8080 max_fails=3 fail_timeout=30s;
 }
 
 server {
@@ -225,7 +225,7 @@ server {
 }
 ```
 
-Health check: Nginx checks upstream servers and removes unhealthy ones from rotation.
+Health check: Nginx passive health checks — after 3 failed requests within 30s, the upstream server is marked unavailable for 30s. Docker-level healthchecks on api-server containers provide additional resilience.
 
 ## Resilience
 
@@ -271,7 +271,7 @@ services:
 
   # Application (2 replicas each)
   api-server-1:       # port 8080 internal
-  api-server-2:       # port 8081 internal
+  api-server-2:       # port 8080 internal (separate container, same port)
   transcoding-worker-1:
   transcoding-worker-2:
   completion-handler-1:
