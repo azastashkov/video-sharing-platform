@@ -20,7 +20,7 @@ public class LoadClientApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        String baseUrl = System.getenv().getOrDefault("API_BASE_URL", "http://localhost:8080");
+        String baseUrl = System.getenv().getOrDefault("API_BASE_URL", "http://localhost");
         String videoDir = System.getenv().getOrDefault("VIDEO_DIR", "./video");
         ObjectMapper mapper = new ObjectMapper();
         HttpClient client = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(10)).build();
