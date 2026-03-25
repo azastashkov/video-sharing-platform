@@ -5,6 +5,9 @@ import com.videosharing.apiserver.entity.VideoEntity;
 import com.videosharing.apiserver.repository.TranscodedFileRepository;
 import com.videosharing.apiserver.repository.VideoRepository;
 import com.videosharing.common.dto.VideoStatus;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Timer;
 import io.minio.GetObjectArgs;
 import io.minio.MinioClient;
 import io.minio.StatObjectArgs;
@@ -26,19 +29,34 @@ public class VideoStreamingService {
     private final VideoRepository videoRepository;
     private final TranscodedFileRepository transcodedFileRepository;
     private final String transcodedBucket;
+    private final Counter streamRequestCounter;
+    private final Timer streamLatencyTimer;
 
     public VideoStreamingService(
             MinioClient minioClient,
             VideoRepository videoRepository,
             TranscodedFileRepository transcodedFileRepository,
-            @Value("${minio.transcoded-bucket}") String transcodedBucket) {
+            @Value("${minio.transcoded-bucket}") String transcodedBucket,
+            MeterRegistry meterRegistry) {
         this.minioClient = minioClient;
         this.videoRepository = videoRepository;
         this.transcodedFileRepository = transcodedFileRepository;
         this.transcodedBucket = transcodedBucket;
+        this.streamRequestCounter = Counter.builder("video_stream_requests_total")
+                .description("Total number of video stream requests")
+                .register(meterRegistry);
+        this.streamLatencyTimer = Timer.builder("video_stream_seconds")
+                .description("Video stream request latency")
+                .publishPercentileHistogram()
+                .register(meterRegistry);
     }
 
     public Optional<StreamResult> streamVideo(String filename, String resolution) {
+        streamRequestCounter.increment();
+        return streamLatencyTimer.record(() -> doStreamVideo(filename, resolution));
+    }
+
+    private Optional<StreamResult> doStreamVideo(String filename, String resolution) {
         Optional<VideoEntity> videoOpt = videoRepository.findFirstByOriginalFilenameAndStatusOrderByCreatedAtDesc(
                 filename, VideoStatus.COMPLETED);
         if (videoOpt.isEmpty()) {

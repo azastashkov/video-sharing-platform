@@ -6,6 +6,7 @@ import com.videosharing.apiserver.repository.TranscodedFileRepository;
 import com.videosharing.apiserver.repository.VideoRepository;
 import com.videosharing.apiserver.service.VideoStreamingService;
 import com.videosharing.common.dto.VideoStatus;
+import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import io.minio.GetObjectArgs;
 import io.minio.GetObjectResponse;
 import io.minio.MinioClient;
@@ -47,7 +48,8 @@ class VideoStreamingServiceTest {
                 minioClient,
                 videoRepository,
                 transcodedFileRepository,
-                "transcoded-storage"
+                "transcoded-storage",
+                new SimpleMeterRegistry()
         );
     }
 

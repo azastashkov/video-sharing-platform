@@ -124,7 +124,7 @@
       "id": 9,
       "title": "Stream Request Rate",
       "type": "timeseries",
-      "targets": [{ "expr": "sum(rate(http_server_requests_seconds_count{application=\"api-server\",uri=\"/api/videos/stream\"}[1m]))", "legendFormat": "Stream req/s" }]
+      "targets": [{ "expr": "sum(rate(video_stream_requests_total[1m]))", "legendFormat": "Stream req/s" }]
     },
     {
       "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
@@ -133,7 +133,7 @@
       "id": 10,
       "title": "Stream Latency (p95)",
       "type": "timeseries",
-      "targets": [{ "expr": "histogram_quantile(0.95, sum(rate(http_server_requests_seconds_bucket{application=\"api-server\",uri=\"/api/videos/stream\"}[5m])) by (le))", "legendFormat": "p95" }]
+      "targets": [{ "expr": "histogram_quantile(0.95, sum(rate(video_stream_seconds_bucket[5m])) by (le))", "legendFormat": "p95" }]
     },
     {
       "collapsed": false,
